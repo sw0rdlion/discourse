@@ -46,6 +46,12 @@ export default Ember.Controller.extend(BufferedContent, {
     }
   },
 
+  @computed('model.category_id')
+  showSharedDraftControls(categoryId) {
+    let draftCat = this.site.shared_drafts_category_id;
+    return draftCat && categoryId && draftCat === categoryId;
+  },
+
   @computed('site.mobileView', 'model.posts_count')
   showSelectedPostsAtBottom(mobileView, postsCount) {
     return mobileView && postsCount > 3;
