@@ -1,3 +1,6 @@
+<div class="container-tip">
+<div class="container-telo">
+
 {{#discourse-topic multiSelect=multiSelect enteredAt=enteredAt topic=model hasScrolled=hasScrolled}}
   {{#if model}}
     {{add-category-class category=model.category}}
@@ -80,22 +83,6 @@
 
       {{#topic-navigation topic=model jumpToIndex=(action "jumpToIndex") as |info|}}
         {{#if info.renderTimeline}}
-          {{#if info.renderAdminMenuButton}}
-            {{topic-admin-menu-button
-              topic=model
-              fixed="true"
-              toggleMultiSelect=(action "toggleMultiSelect")
-              deleteTopic=(action "deleteTopic")
-              recoverTopic=(action "recoverTopic")
-              toggleClosed=(action "toggleClosed")
-              toggleArchived=(action "toggleArchived")
-              toggleVisibility=(action "toggleVisibility")
-              showTopicStatusUpdate=(action "topicRouteAction" "showTopicStatusUpdate")
-              showFeatureTopic=(action "topicRouteAction" "showFeatureTopic")
-              showChangeTimestamp=(action "topicRouteAction" "showChangeTimestamp")
-              convertToPublicTopic=(action "convertToPublicTopic")
-              convertToPrivateMessage=(action "convertToPrivateMessage")}}
-          {{/if}}
 
           {{topic-timeline
             topic=model
@@ -121,6 +108,8 @@
             showChangeTimestamp=(action "topicRouteAction" "showChangeTimestamp")
             convertToPublicTopic=(action "convertToPublicTopic")
             convertToPrivateMessage=(action "convertToPrivateMessage")}}
+            
+         
         {{else}}
           {{#topic-progress
             prevEvent=info.prevEvent
@@ -274,9 +263,7 @@
 
               {{plugin-outlet name="topic-above-suggested" args=(hash model=model)}}
 
-              {{#if model.suggestedTopics.length}}
-                {{suggested-topics topic=model}}
-              {{/if}}
+
             {{/if}}
           {{/conditional-loading-spinner}}
 
@@ -309,6 +296,22 @@
   {{share-popup topic=model replyAsNewTopic="replyAsNewTopic"}}
 
   {{#if currentUser.enable_quoting}}
-    {{quote-button quoteState=quoteState selectText=(action "selectText")}}
+  {{quote-button quoteState=quoteState selectText=(action "selectText")}}
   {{/if}}
+
 {{/discourse-topic}}
+</div>  
+
+<div class="container-bar">
+    <noindex>
+    <div class="sidebar-top">
+    {{suggested-topics-sug topic=model url=model.url}} 
+    </div>
+    </noindex>
+</div>
+  
+    {{#if model.suggestedTopics.length}}
+    {{suggested-topics topic=model}}
+    {{/if}}
+  
+</div>
