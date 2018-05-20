@@ -1,14 +1,19 @@
-{{#conditional-loading-spinner condition=loading}}
-  {{#if hasIncoming}}
-  <div class="show-mores">
-    <div class='alert alert-info clickable' {{action "showInserted"}}>
-      {{count-i18n key="topic_count_" suffix="latest" count=incomingCount}}
-    </div>
-  </div>
-  {{/if}}
+<div class='cat-pods'>
+<div class='topic-list-link-top'>GÜNÜN TRENDLERİ</div>
+<div class="rss-link-top"><a  href="https://oyuncum.com/top">TOP</a></div>
 
-  {{#if topics}}
-    {{topic-list showParticipants=showParticipants
+<hr class="link">
+ {{mount-widget widget="link-top"}}
+</div>
+
+<h3 class="sidebar-sug">BENZER POSTLAR</h3>
+{{#if topics}} {{else}} 
+{{#unless loadingMore}}
+<center><small style="color:#888">Yüklenemedi veya yok gibi...<br><br></small></center>
+{{/unless}}
+{{/if}}
+
+{{topic-list-sug showParticipants=showParticipants
                  showPosters=showPosters
                  hideCategory=hideCategory
                  topics=topics
@@ -16,13 +21,27 @@
                  bulkSelectEnabled=bulkSelectEnabled
                  canBulkSelect=canBulkSelect
                  selected=selected
-                 skipHeader=skipHeader
-                 tagsForUser=tagsForUser}}
-  {{else}}
-    {{#unless loadingMore}}
-    <div class='alert alert-info'>
-      {{i18n 'choose_topic.none_found'}}
-    </div>
-    {{/unless}}
-  {{/if}}
-{{/conditional-loading-spinner}}
+                 skipHeader=skipHeader}}
+ 
+<a href="https://oyuncum.com{{unbound url}}.rss" title="Bu postu ve cevapları RSS'den takip etmek için" class="ser cvet">RSS</a>
+<hr class="shar"> 
+<div class="share2">
+<a rel="nofollow" class="soc-link" href="http://www.facebook.com/sharer.php?u=https://oyuncum.com{{unbound url}}" target="_blank">
+<i class="fa fa-facebook" aria-hidden="true"></i></a>
+<a rel="nofollow" class="soc-link" href="http://twitter.com/share?url=https://oyuncum.com{{unbound url}}" target="_blank">
+<i class="fa fa-twitter" aria-hidden="true"></i></a>
+<a rel="nofollow" class="soc-link" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://oyuncum.com{{unbound url}}" target="_blank">
+<i class="fa fa-odnoklassniki" aria-hidden="true"></i></a>
+<a rel="nofollow" class="soc-link" href="https://vk.com/share.php?url=https://oyuncum.com{{unbound url}}" target="_blank">
+<i class="fa fa-vk" aria-hidden="true"></i></a>
+</div>
+<div>
+<a class="cvet" href="https://oyuncum.com{{unbound url}}" id="scroll-top" style="display: inline;"><i class="fa fa-arrow-up"></i></a>
+</div>
+
+{{#if topics}} {{else}}
+{{#unless loadingMore}}
+<br><center><a class="cvet" href="https://oyuncum.com{{unbound url}}/500" id="scroll-bottom" style="display: inline;"><small>Daha fazla göster...</small><br>
+<i class="fa fa-arrow-down"></i></a></center>
+{{/unless}}
+{{/if}}
